@@ -1,7 +1,5 @@
 package com.mas.sonam.transactions.model.entity;
 
-import com.mas.sonam.accounts.model.entity.Account;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,12 +13,12 @@ public class Transaction {
 
     private LocalDate localDate;
 
+    private int fromAccount;
+
+    private int toAccount;
+
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     private BigDecimal amount;
 
@@ -48,19 +46,29 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public int getFromAccount() {
+        return fromAccount;
+    }
+
+    public void setFromAccount(int fromAccount) {
+        this.fromAccount = fromAccount;
+    }
+
+    public int getToAccount() {
+        return toAccount;
+    }
+
+    public void setToAccount(int toAccount) {
+        this.toAccount = toAccount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+
 }

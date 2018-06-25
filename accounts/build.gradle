@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.2.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -25,17 +25,18 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("com.h2database:h2")
     compileOnly('org.projectlombok:lombok:1.18.0')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 ext {
-    springCloudVersion = 'Finchley.RC2'
+    springCloudVersion = 'Dalston.SR1'
 }
 
 dependencyManagement {

@@ -43,7 +43,7 @@ public class DataLoader implements ApplicationRunner {
 
         // customer Sonam
         Account account = new Account();
-        account.setAccountNumber("ACC123");
+        account.setAccountNumber(123);
         account.setAccountType(AccountType.PRIMARY);
         account.setCustomer(customer);
         account.setBalance(new BigDecimal(123.66));
@@ -52,7 +52,7 @@ public class DataLoader implements ApplicationRunner {
 		accountRepository.save(account);
 
 		System.out.print("csuname   " + customerRepository.findByName("sonam").getId());
-		System.out.print("csuname   " + accountRepository.findByAccountNumber("ACC123").getAccountNumber());
+		System.out.print("csuname   " + accountRepository.findByAccountNumber(123).getAccountNumber());
 
     }
 }
