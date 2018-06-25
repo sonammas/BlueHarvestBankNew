@@ -1,5 +1,6 @@
 package com.mas.sonam.accounts.controller;
 
+import com.mas.sonam.accounts.model.dto.CustomerDto;
 import com.mas.sonam.accounts.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class AccountController {
         accountService.openSecondaryAccountForCustomer(id, initialCredit);
     }
 
-    @GetMapping(value = "{id}/transactions")
-    public void getTransactionForCustomer(@PathVariable Long id){
-        accountService.getTransactionForCustomer(id);
+    @GetMapping(value = "{id}/transactions/type/{type}")
+    public CustomerDto getTransactionForCustomer(@PathVariable Long id, @PathVariable String type){
+        return accountService.getTransactionForCustomer(id, type);
     }
 }

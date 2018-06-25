@@ -1,6 +1,10 @@
 package com.mas.sonam.accounts.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mas.sonam.accounts.model.AccountType;
+import com.mas.sonam.accounts.model.dto.CustomerDto;
+import com.mas.sonam.accounts.model.dto.TransactionDto;
 import com.mas.sonam.accounts.model.entity.Account;
 import com.mas.sonam.accounts.model.entity.Customer;
 import com.mas.sonam.accounts.repository.AccountRepository;
@@ -14,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -64,15 +70,35 @@ public class AccountService {
         }
     }
 
-    public void getTransactionForCustomer(final Long customerId) {
-        //get accounts for customerId
-        List<Account> customerAccounts = accountRepository.findByCustomer(customerRepository.findById(customerId));
-        customerAccounts.forEach(account -> {
+    public CustomerDto getTransactionForCustomer(final Long customerId, final String accountType) {
+        Customer customer = customerRepository.findById(customerId);
+        Account account = accountRepository.findByCustomerAndAccountType
+                (customerRepository.findById(customerId), AccountType.valueOf(accountType));
+
             String response = restTemplate.exchange("http://transactions/transaction/{accountId}",
                     HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                     }, account.getId()).getBody();
-        });
+                List<TransactionDto> transactionDtos = fromJSON(new TypeReference<List<TransactionDto>>() {}, response);
 
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName(customer.getName());
+        customerDto.setSurname(customer.getSurname());
+        customerDto.setTransactionDto(transactionDtos);
+        customerDto.setBalance(account.getBalance());
+
+        return customerDto;
+    }
+
+    public static <T> T fromJSON(final TypeReference<T> type,
+                                 final String jsonPacket) {
+        T data = null;
+
+        try {
+            data = new ObjectMapper().readValue(jsonPacket, type);
+        } catch (Exception e) {
+            // Handle the problem
+        }
+        return data;
     }
 
     @Bean

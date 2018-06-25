@@ -1,14 +1,9 @@
-package com.mas.sonam.transactions.model.entity;
+package com.mas.sonam.transactions.model.entity.dto;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-public class Transaction {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class TransactionDto {
     private Long id;
 
     private LocalDate localDate;
@@ -35,10 +30,6 @@ public class Transaction {
         this.localDate = localDate;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
     public int getFromAccount() {
         return fromAccount;
     }
@@ -55,9 +46,22 @@ public class Transaction {
         this.toAccount = toAccount;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
+    public TransactionDto() {
+    }
 
+    public TransactionDto(Long id, LocalDate localDate, int fromAccount, int toAccount, BigDecimal amount) {
+        this.id = id;
+        this.localDate = localDate;
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
+        this.amount = amount;
+    }
 }

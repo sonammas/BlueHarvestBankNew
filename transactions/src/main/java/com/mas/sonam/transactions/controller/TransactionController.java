@@ -1,6 +1,6 @@
 package com.mas.sonam.transactions.controller;
 
-import com.mas.sonam.transactions.model.entity.Transaction;
+import com.mas.sonam.transactions.model.entity.dto.TransactionDto;
 import com.mas.sonam.transactions.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/transaction/{accountId}", method = RequestMethod.GET)
-    public List<Transaction> getTransactionForAccount(@PathVariable int accountId){
+    public List<TransactionDto> getTransactionForAccount(@PathVariable int accountId){
         return transactionService.getTransactionForAccountId(accountId);
     }
 }
