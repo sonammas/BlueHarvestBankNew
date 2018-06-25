@@ -41,7 +41,14 @@ Rest concepts
 ./gradlew bootRun for all the backend services. Run the eureka server first ie. netflix-eureka-naming-server.
 
 Ports: - For the backend services check the server.port in application properties.
+DataLoader.java is a class which is loading test data.
 
-
-# prerequiste software
+# Prerequiste software
 Java 8
+Postman
+
+# How to Run
+Use postman to call the rest end points.
+> To open secondary account - http://localhost:8823/customer/1/open/10
+> To get all the transactions - http://localhost:8823/customer/1/transactions/type/PRIMARY
+
