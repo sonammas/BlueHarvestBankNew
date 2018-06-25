@@ -2,11 +2,10 @@ package com.mas.sonam.transactions.controller;
 
 import com.mas.sonam.transactions.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 public class TransactionCommandController {
@@ -18,10 +17,10 @@ public class TransactionCommandController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping(value = "/transactions/from/{from}/to/{to}/amount/{amount}")
-    public Long createTransaction(@PathVariable int fromAccount,
-                                  @PathVariable int toAccount,
+    @RequestMapping(value = "/from/{from}/to/{to}/amount/{amount}", method = RequestMethod.GET)
+    public Long createTransaction(@PathVariable int from,
+                                  @PathVariable int to,
                                   @PathVariable BigDecimal amount){
-        return transactionService.createTransaction(fromAccount, toAccount, amount);
+        return transactionService.createTransaction(from, to, amount);
     }
 }

@@ -46,19 +46,20 @@ public class AccountService {
             account.setCustomer(customerRepository.findById(customerId));
             Account save = accountRepository.save(account);
 
+            Account primaryAccountOftheCustomer = accountRepository.findByCustomerAndAccountType(customer, AccountType.PRIMARY);
+
             if (initialCredit.compareTo(BigDecimal.ZERO) != 0) {
                 //a new transaction to be sent to the new account from primary account
                 //check if enough balance is there on the primary account
-                Account primaryAccountOftheCustomer = accountRepository.findByCustomerAndAccountType(customer, AccountType.PRIMARY);
                 if(primaryAccountOftheCustomer.getBalance().compareTo(initialCredit) > 0) {
                     String response = restTemplate.exchange("http://transactions/from/{from}/to/{to}/amount/{amount}",
-                            HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
-                            }, primaryAccountOftheCustomer.getId(), save.getId(), initialCredit).getBody();
+                            HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                    }, primaryAccountOftheCustomer.getId(), save.getId(), initialCredit).getBody();
                 }
             }
-
             //set the new balance on the primary account
-
+            primaryAccountOftheCustomer.setBalance(primaryAccountOftheCustomer.getBalance().subtract(initialCredit));
+            accountRepository.save(primaryAccountOftheCustomer);
         }
     }
 
