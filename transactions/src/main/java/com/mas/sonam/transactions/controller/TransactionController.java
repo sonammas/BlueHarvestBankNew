@@ -1,5 +1,6 @@
 package com.mas.sonam.transactions.controller;
 
+import com.mas.sonam.transactions.model.entity.Transaction;
 import com.mas.sonam.transactions.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,12 +9,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-public class TransactionCommandController {
+public class TransactionController {
 
     @Autowired
     private final TransactionsService transactionService;
 
-    public TransactionCommandController(TransactionsService transactionService) {
+    public TransactionController(TransactionsService transactionService) {
         this.transactionService = transactionService;
     }
 
@@ -25,7 +26,7 @@ public class TransactionCommandController {
     }
 
     @RequestMapping(value = "/transaction/{accountId}", method = RequestMethod.GET)
-    public void getTransactionForAccount(@PathVariable int accountId){
-        //return transactionService.createTransaction(from, to, amount);
+    public List<Transaction> getTransactionForAccount(@PathVariable int accountId){
+        return transactionService.getTransactionForAccountId(accountId);
     }
 }

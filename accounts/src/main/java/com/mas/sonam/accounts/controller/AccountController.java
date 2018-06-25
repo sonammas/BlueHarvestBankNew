@@ -8,12 +8,12 @@ import java.math.BigDecimal;
 
 @RestController
 @RequestMapping(value = "customer")
-public class AccountCommandController {
+public class AccountController {
 
     @Autowired
     private final AccountService accountService;
 
-    public AccountCommandController(AccountService accountService) {
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 
