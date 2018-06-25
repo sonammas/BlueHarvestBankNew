@@ -18,4 +18,30 @@ Stock inventory and api gateway registers to the eureka.
 It also registers with the eureka naming server so that it becomes the discoverable service. 
 This microservice will be called by Accounts microservice to create any transaction between any two accounts. It uses resttemplate. Account service just need to know the name of this service and does not have to know anything about the port information. This is the beauty of Eureka Server Discovery Client !!
 
-4. 
+4. zuul-api-gateway-server :- This is common pattern in microservices based systems where all the requests to the microservices
+should go through api gateways. Hence now all the clients just knows the api gateway whitout
+knowing the hosts details of the stock-inventory services. Now we can run as many instances
+of stock-inventory service which registers to eureka server and api gateway uses
+Ribbon to load balance all the requests from all the clients.
+Fantastic !!!
+
+# Implementation
+Below technologies or concepts are used
+
+Spring boot
+Java 8
+Spring
+Microservices based concepts like gateways , naming server
+Hibernate/JPA
+Rest concepts
+
+
+# Deployment
+
+./gradlew bootRun for all the backend services. Run the eureka server first ie. netflix-eureka-naming-server.
+
+Ports: - For the backend services check the server.port in application properties.
+
+
+# prerequiste software
+Java 8
