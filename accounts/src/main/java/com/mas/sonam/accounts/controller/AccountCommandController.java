@@ -21,4 +21,9 @@ public class AccountCommandController {
     public void openSecondaryAccountForCustomer(@PathVariable Long id, @PathVariable BigDecimal initialCredit){
         accountService.openSecondaryAccountForCustomer(id, initialCredit);
     }
+
+    @GetMapping(value = "{id}/transactions")
+    public void getTransactionForCustomer(@PathVariable Long id){
+        accountService.getTransactionForCustomer(id);
+    }
 }

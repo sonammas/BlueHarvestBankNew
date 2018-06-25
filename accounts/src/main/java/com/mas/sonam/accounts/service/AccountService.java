@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 @Service
@@ -61,6 +62,17 @@ public class AccountService {
             primaryAccountOftheCustomer.setBalance(primaryAccountOftheCustomer.getBalance().subtract(initialCredit));
             accountRepository.save(primaryAccountOftheCustomer);
         }
+    }
+
+    public void getTransactionForCustomer(final Long customerId) {
+        //get accounts for customerId
+        List<Account> customerAccounts = accountRepository.findByCustomer(customerRepository.findById(customerId));
+        customerAccounts.forEach(account -> {
+            String response = restTemplate.exchange("http://transactions/transaction/{accountId}",
+                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                    }, account.getId()).getBody();
+        });
+
     }
 
     @Bean

@@ -23,4 +23,9 @@ public class TransactionCommandController {
                                   @PathVariable BigDecimal amount){
         return transactionService.createTransaction(from, to, amount);
     }
+
+    @RequestMapping(value = "/transaction/{accountId}", method = RequestMethod.GET)
+    public void getTransactionForAccount(@PathVariable int accountId){
+        //return transactionService.createTransaction(from, to, amount);
+    }
 }
