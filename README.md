@@ -11,4 +11,5 @@ Second is to fetch all the transactions for any customer along with his name, su
 It also registers with the eureka naming server so that it becomes the discoverable service. It has unit and integration tests. 
 Awesome !!
 
-2. 
+2. eureka-server :- In microservices based systems all the service should be discoverable. Eureka can be used for this purpose.
+Stock inventory and api gateway registers to the eureka.
