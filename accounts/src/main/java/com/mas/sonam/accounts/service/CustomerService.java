@@ -1,5 +1,7 @@
 package com.mas.sonam.accounts.service;
 
+import com.mas.sonam.accounts.controller.AccountTransactionBean;
+import com.mas.sonam.accounts.controller.AccountTransactionServiceProxy;
 import com.mas.sonam.accounts.model.AccountType;
 import com.mas.sonam.accounts.model.entity.Account;
 import com.mas.sonam.accounts.repository.AccountRepository;
@@ -18,10 +20,12 @@ public class CustomerService {
     @Autowired
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
+    private final AccountTransactionServiceProxy accountTransactionServiceProxy;
 
-    public CustomerService(CustomerRepository customerRepository, AccountRepository accountRepository) {
+    public CustomerService(CustomerRepository customerRepository, AccountRepository accountRepository, AccountTransactionServiceProxy accountTransactionServiceProxy) {
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
+        this.accountTransactionServiceProxy = accountTransactionServiceProxy;
     }
 
     public void openAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
@@ -35,7 +39,8 @@ public class CustomerService {
                 account.setCustomer(customerRepository.findById(customerId).get());
                 accountRepository.save(account);
                 //a new transaction to be sent to the new account
-
+                AccountTransactionBean accountTransactionBean =
+                        accountTransactionServiceProxy.retrieveExchangeValue(0, account.getAccountNumber(), initialCredit);
             }
         }
     }

@@ -1,8 +1,10 @@
 package com.mas.sonam.accounts.controller;
 
 import com.mas.sonam.accounts.service.CustomerService;
+import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 
