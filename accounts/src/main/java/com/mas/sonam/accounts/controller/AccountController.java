@@ -22,8 +22,9 @@ public class AccountController {
      * This rest end point is used to open secondary account for the existing customers
      * @param id id of the customer
      * @param initialCredit the initial amount to open the secondary account
+     * return id of SECONDARY accountId created
      */
-    @PostMapping(value = "{id}/open/{initialCredit}")
+    @PostMapping(value = "open/customerId/{id}/initialCredit/{initialCredit}")
     public Long openSecondaryAccountForCustomer(@PathVariable Long id, @PathVariable BigDecimal initialCredit){
         return accountService.openSecondaryAccountForCustomer(id, initialCredit);
     }

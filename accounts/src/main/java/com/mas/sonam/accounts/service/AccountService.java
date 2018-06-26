@@ -42,7 +42,7 @@ public class AccountService {
 
     public Long openSecondaryAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
 
-        if (customerRepository.findById(customerId) !=null) {
+        if (customerRepository.findById(customerId) != null) {
             Customer customer = customerRepository.findById(customerId);
             //create new account
             Account account = new Account();

@@ -11,7 +11,5 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Account findByAccountNumber(int accountNumber);
-
     Account findByCustomerAndAccountType(Customer customer, AccountType accountType);
 }

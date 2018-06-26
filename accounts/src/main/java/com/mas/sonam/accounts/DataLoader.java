@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Component
 public class DataLoader implements ApplicationRunner {
 
 	private final CustomerRepository customerRepository;

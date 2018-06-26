@@ -16,6 +16,26 @@ public class CustomerDto {
 
     private List<TransactionDto> transactionDtos;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public List<TransactionDto> getTransactionDtos() {
+        return transactionDtos;
+    }
+
+    public void setTransactionDtos(List<TransactionDto> transactionDtos) {
+        this.transactionDtos = transactionDtos;
+    }
+
     public CustomerDto() {
     }
 
