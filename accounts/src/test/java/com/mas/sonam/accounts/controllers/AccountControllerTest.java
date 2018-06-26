@@ -60,7 +60,7 @@ public class AccountControllerTest {
 
         mockMvc.perform(get("/account/1/transactions/type/PRIMARY")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
-             //   .andExpect((ResultMatcher) jsonPath("$.name", is("sonam")));
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$.name", is("sonam")));
     }
 }
