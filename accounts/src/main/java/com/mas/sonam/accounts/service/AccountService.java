@@ -31,7 +31,6 @@ public class AccountService {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
 
@@ -41,7 +40,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public void openSecondaryAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
+    public Long openSecondaryAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
 
         if (customerRepository.findById(customerId) !=null) {
             Customer customer = customerRepository.findById(customerId);
@@ -51,7 +50,7 @@ public class AccountService {
             account.setAccountType(AccountType.SECONDARY);
             account.setBalance(initialCredit);
             account.setCustomer(customerRepository.findById(customerId));
-            Account save = accountRepository.save(account);
+            Account accountCreated = accountRepository.save(account);
 
             Account primaryAccountOftheCustomer = accountRepository.findByCustomerAndAccountType(customer, AccountType.PRIMARY);
 
@@ -59,15 +58,18 @@ public class AccountService {
                 //a new transaction to be sent to the new account from primary account
                 //check if enough balance is there on the primary account
                 if(primaryAccountOftheCustomer.getBalance().compareTo(initialCredit) > 0) {
-                    String response = restTemplate.exchange("http://transactions/from/{from}/to/{to}/amount/{amount}",
+                    restTemplate.exchange("http://transactions/from/{from}/to/{to}/amount/{amount}",
                             HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
-                    }, primaryAccountOftheCustomer.getId(), save.getId(), initialCredit).getBody();
+                    }, primaryAccountOftheCustomer.getId(), accountCreated.getId(), initialCredit).getBody();
                 }
             }
+
             //set the new balance on the primary account
             primaryAccountOftheCustomer.setBalance(primaryAccountOftheCustomer.getBalance().subtract(initialCredit));
             accountRepository.save(primaryAccountOftheCustomer);
+            return accountCreated.getId();
         }
+        return null;
     }
 
     public CustomerDto getTransactionForCustomer(final Long customerId, final String accountType) {
@@ -78,7 +80,7 @@ public class AccountService {
             String response = restTemplate.exchange("http://transactions/transaction/{accountId}",
                     HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                     }, account.getId()).getBody();
-                List<TransactionDto> transactionDtos = fromJSON(new TypeReference<List<TransactionDto>>() {}, response);
+            List<TransactionDto> transactionDtos = fromJSON(new TypeReference<List<TransactionDto>>() {}, response);
 
         CustomerDto customerDto = new CustomerDto();
         customerDto.setName(customer.getName());

@@ -13,12 +13,11 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Component
 public class DataLoader implements ApplicationRunner {
 
-	private CustomerRepository customerRepository;
+	private final CustomerRepository customerRepository;
 
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
 
 	@Autowired
 	public DataLoader(CustomerRepository customerRepository, AccountRepository accountRepository) {
@@ -33,7 +32,7 @@ public class DataLoader implements ApplicationRunner {
 		customer.setSurname("masuriha");
 		customer.setName("sonam");
 
-		// customer Sonam
+		// customer sumit
 		Customer customer2 = new Customer();
 		customer2.setSurname("Jhawar");
 		customer2.setName("Sumit");
@@ -50,9 +49,6 @@ public class DataLoader implements ApplicationRunner {
         account.setAccountOpeningDate(LocalDate.now());
 
 		accountRepository.save(account);
-
-		System.out.print("csuname   " + customerRepository.findByName("sonam").getId());
-		System.out.print("csuname   " + accountRepository.findByAccountNumber(123).getAccountNumber());
 
     }
 }
