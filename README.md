@@ -50,6 +50,7 @@ Postman
 # How to Run
 Use postman to call the rest end points.
 > To open secondary account - http://localhost:8823/account/open/customerId/1/initialCredit/10
+Here I have assumed that when the customer opens the secondary account with some initial credit, then this transaction will happen betwen primary account and secondary (new) account.
 
 > To get all the transactions - http://localhost:8823/customer/1/transactions/type/PRIMARY
 
