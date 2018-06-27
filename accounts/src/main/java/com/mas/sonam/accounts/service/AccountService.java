@@ -80,14 +80,12 @@ public class AccountService {
                     }, account.getId()).getBody();
             List<TransactionDto> transactionDtos = fromJSON(new TypeReference<List<TransactionDto>>() {}, response);
 
-        CustomerDto customerDto = CustomerDto.builder()
+        return CustomerDto.builder()
                 .name(customer.getName())
                 .surname(customer.getSurname())
                 .transactionDtos(transactionDtos)
                 .balance(account.getBalance())
                 .build();
-
-        return customerDto;
     }
 
     public static <T> T fromJSON(final TypeReference<T> type,

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: accounts
+    name: transactions
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
@@ -10,4 +10,4 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
 
 server:
-  port: 8823
+  port: 8824
