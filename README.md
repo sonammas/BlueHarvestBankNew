@@ -28,11 +28,11 @@ Fantastic !!!
 # Implementation
 Below technologies or concepts are used
 
-Spring boot
-Java 8
-Spring
-Microservices based concepts like gateways , naming server
-Hibernate/JPA
+Spring boot,
+Java 8,
+Spring,
+Microservices based concepts like gateways , naming server,
+Hibernate/JPA,
 Rest concepts
 
 
@@ -50,5 +50,6 @@ Postman
 # How to Run
 Use postman to call the rest end points.
 > To open secondary account - http://localhost:8823/account/open/customerId/1/initialCredit/10
+
 > To get all the transactions - http://localhost:8823/customer/1/transactions/type/PRIMARY
 
