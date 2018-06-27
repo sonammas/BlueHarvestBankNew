@@ -25,11 +25,8 @@ public class TransactionsService {
     public Long createTransaction(Integer fromAccount,
                                   Integer toAccount,
                                   BigDecimal amount) {
-        Transaction transaction = new Transaction();
-        transaction.setFromAccount(fromAccount);
-        transaction.setToAccount(toAccount);
-        transaction.setAmount(amount);
-        transaction.setLocalDate(LocalDate.now());
+        Transaction transaction = Transaction.builder().fromAccount(fromAccount)
+                .toAccount(toAccount).amount(amount).localDate(LocalDate.now()).build();
         Transaction save = transactionRepository.save(transaction);
         return save.getId();
     }

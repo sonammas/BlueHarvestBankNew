@@ -18,6 +18,14 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    /**
+     * This rest api will be used by Account service to create the transaction
+     * @param from
+     * @param to
+     * @param amount
+     * @return transactionId
+     */
+
     @RequestMapping(value = "/from/{from}/to/{to}/amount/{amount}", method = RequestMethod.GET)
     public Long createTransaction(@PathVariable int from,
                                   @PathVariable int to,
@@ -25,6 +33,11 @@ public class TransactionController {
         return transactionService.createTransaction(from, to, amount);
     }
 
+    /**
+     * Get all the transaction summary for the account
+     * @param accountId
+     * @return List of transactions
+     */
     @RequestMapping(value = "/transaction/{accountId}", method = RequestMethod.GET)
     public List<TransactionDto> getTransactionForAccount(@PathVariable int accountId){
         return transactionService.getTransactionForAccountId(accountId);

@@ -1,10 +1,20 @@
 package com.mas.sonam.transactions.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Getter
 public class Transaction {
 
     @Id
@@ -18,46 +28,5 @@ public class Transaction {
     private int toAccount;
 
     private BigDecimal amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public int getFromAccount() {
-        return fromAccount;
-    }
-
-    public void setFromAccount(int fromAccount) {
-        this.fromAccount = fromAccount;
-    }
-
-    public int getToAccount() {
-        return toAccount;
-    }
-
-    public void setToAccount(int toAccount) {
-        this.toAccount = toAccount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
 
 }
