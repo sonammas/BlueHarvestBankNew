@@ -28,8 +28,8 @@ Fantastic !!!
 # Implementation
 Below technologies or concepts are used
 
-Spring boot
-Java 8
+Spring boot 
+Java 8 
 Spring
 Microservices based concepts like gateways , naming server
 Hibernate/JPA
