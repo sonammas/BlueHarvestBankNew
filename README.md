@@ -44,7 +44,7 @@ Ports: - For the backend services check the server.port in application propertie
 DataLoader.java is a class which is loading test data. This will create 2 Customers. Also it will create one primary account for one customer
 
 # Prerequiste software
-Java 8
+Java 8 and
 Postman
 
 # How to Run
