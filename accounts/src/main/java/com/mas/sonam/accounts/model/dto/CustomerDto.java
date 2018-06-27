@@ -1,11 +1,17 @@
 package com.mas.sonam.accounts.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDto {
 
     private String name;
@@ -15,50 +21,4 @@ public class CustomerDto {
     private BigDecimal balance;
 
     private List<TransactionDto> transactionDtos;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public List<TransactionDto> getTransactionDtos() {
-        return transactionDtos;
-    }
-
-    public void setTransactionDtos(List<TransactionDto> transactionDtos) {
-        this.transactionDtos = transactionDtos;
-    }
-
-    public CustomerDto() {
-    }
-
-    public CustomerDto(String name, String surname, BigDecimal balance, List<TransactionDto> transactionDtos) {
-        this.name = name;
-        this.surname = surname;
-        this.balance = balance;
-        this.transactionDtos = transactionDtos;
-    }
-
-    public void setTransactionDto(List<TransactionDto> transactionDtos) {
-        this.transactionDtos = transactionDtos;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
 }

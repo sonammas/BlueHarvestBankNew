@@ -1,29 +1,28 @@
 package com.mas.sonam.accounts.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.xml.ws.BindingType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class TransactionDto {
+public class AccountDto {
+
     private Long id;
 
-    @JsonIgnore
-    private LocalDate localDate;
+    private int accountNumber;
 
-    private int fromAccount;
+    private LocalDate accountOpeningDate;
 
-    private int toAccount;
+    private Long customerId;
 
-    private BigDecimal amount;
+    private String accountType;
 
+    private BigDecimal balance;
 }

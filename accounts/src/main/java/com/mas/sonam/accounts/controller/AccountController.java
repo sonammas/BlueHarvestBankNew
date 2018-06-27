@@ -1,6 +1,7 @@
 package com.mas.sonam.accounts.controller;
 
 import com.mas.sonam.accounts.model.dto.CustomerDto;
+import com.mas.sonam.accounts.model.entity.Account;
 import com.mas.sonam.accounts.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AccountController {
      * return id of SECONDARY accountId created
      */
     @PostMapping(value = "open/customerId/{id}/initialCredit/{initialCredit}")
-    public Long openSecondaryAccountForCustomer(@PathVariable Long id, @PathVariable BigDecimal initialCredit){
+    public Account openSecondaryAccountForCustomer(@PathVariable Long id, @PathVariable BigDecimal initialCredit){
         return accountService.openSecondaryAccountForCustomer(id, initialCredit);
     }
 

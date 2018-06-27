@@ -38,16 +38,16 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Long openSecondaryAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
-
-        if (customerRepository.findById(customerId) != null) {
-            Customer customer = customerRepository.findById(customerId);
+    public Account openSecondaryAccountForCustomer(final Long customerId, final BigDecimal initialCredit) {
+        Customer customer = customerRepository.findById(customerId);
+        if (customer != null) {
             //create new account
-            Account account = new Account();
-            account.setAccountOpeningDate(LocalDate.now());
-            account.setAccountType(AccountType.SECONDARY);
-            account.setBalance(initialCredit);
-            account.setCustomer(customerRepository.findById(customerId));
+            Account account = Account.builder()
+                    .accountOpeningDate(LocalDate.now())
+                    .accountType(AccountType.SECONDARY)
+                    .balance(initialCredit)
+                    .customer(customer)
+                    .build();
             Account accountCreated = accountRepository.save(account);
 
             Account primaryAccountOftheCustomer = accountRepository.findByCustomerAndAccountType(customer, AccountType.PRIMARY);
@@ -65,7 +65,7 @@ public class AccountService {
             //set the new balance on the primary account
             primaryAccountOftheCustomer.setBalance(primaryAccountOftheCustomer.getBalance().subtract(initialCredit));
             accountRepository.save(primaryAccountOftheCustomer);
-            return accountCreated.getId();
+            return accountCreated;
         }
         return null;
     }
@@ -80,11 +80,12 @@ public class AccountService {
                     }, account.getId()).getBody();
             List<TransactionDto> transactionDtos = fromJSON(new TypeReference<List<TransactionDto>>() {}, response);
 
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setName(customer.getName());
-        customerDto.setSurname(customer.getSurname());
-        customerDto.setTransactionDto(transactionDtos);
-        customerDto.setBalance(account.getBalance());
+        CustomerDto customerDto = CustomerDto.builder()
+                .name(customer.getName())
+                .surname(customer.getSurname())
+                .transactionDtos(transactionDtos)
+                .balance(account.getBalance())
+                .build();
 
         return customerDto;
     }
@@ -92,7 +93,6 @@ public class AccountService {
     public static <T> T fromJSON(final TypeReference<T> type,
                                  final String jsonPacket) {
         T data = null;
-
         try {
             data = new ObjectMapper().readValue(jsonPacket, type);
         } catch (Exception e) {
